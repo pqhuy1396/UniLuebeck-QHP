@@ -1,18 +1,28 @@
 import React from 'react';
-import { StyleSheet, ImageBackground } from 'react-native';
-import { Button, Text } from 'native-base';
-
+import { StyleSheet, ImageBackground , View} from 'react-native';
+import { Button, Text} from 'native-base';
+import { useNavigation } from '@react-navigation/native';
+import { NativeBaseProvider } from 'native-base';
 export default function Startpage () {
+  const navigation = useNavigation();
+
+  function handleStartPress() {
+    navigation.navigate('Map');
+  }
   return (
+    <NativeBaseProvider>
     <ImageBackground
       source={require('./luebeck.jpg')}
       style={styles.backgroundImage}
     >
-      <Text style={styles.title}>Welcome to Our App</Text>
-      <Button style={styles.startButton}>
-        <Text>Start</Text>
+     <View style={styles.opacity}>
+      <Text style={styles.title}  fontSize="5xl">Smartphone App für Stadtführung und Routenplanung in Lübeck</Text>
+      <Button colorScheme="success" style={styles.button} onPress={handleStartPress}>
+      Start
       </Button>
+      </View>
     </ImageBackground>
+    </NativeBaseProvider>
   );
 };
 
@@ -23,16 +33,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  opacity: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 32,
+    width: "80%",
+    height: "60%",
+    color: "black",
   },
-  startButton: {
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 32,
-    paddingVertical: 16,
-    borderRadius: 8,
-  },
+  button: {
+    width: "50%",
+    
+  }
 });
