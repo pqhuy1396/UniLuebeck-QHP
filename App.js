@@ -1,74 +1,72 @@
 import React from 'react';
-import { StyleSheet, View,TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import Ionicons from '@expo/vector-icons/Ionicons';
+
 import Startpage from './Layout/Startpage';
 import Map from './Layout/Map';
 import Information from './Layout/Information';
 import Plan from './Layout/Plan';
 import Event1 from './Layout/Event1';
 
-export default function App() {
-  const Stack = createStackNavigator();
-  const MenuButton = ({ onPress }) => (
-    <TouchableOpacity onPress={onPress} style={styles.menuButton}>
-      <Ionicons name="md-menu" size={32} color="black" />
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+const MenuButton = ({ onPress }) => (
+  <TouchableOpacity onPress={onPress} style={styles.menuButton}>
+    <Ionicons name="md-menu" size={32} color="black" />
+  </TouchableOpacity>
+);
+
+const AppHeader = ({ title, navigation }) => {
+  return {
+    title: title,
+    headerRight: () => (
+      <MenuButton onPress={() => navigation.openDrawer()} />
+    ),
+    headerShown: true,
+    headerTitleAlign: 'center',
+  };
+};
+
+const AppFooter = ({ title, navigation }) => {
+  return (
+    <TouchableOpacity
+      style={styles.footerButton}
+      onPress={() => navigation.navigate('Map')}>
+      <Text style={styles.footerButtonText}>{title}</Text>
     </TouchableOpacity>
   );
+};
 
 
+export default function App() {
   return (
-    <>
-      <NavigationContainer>
-      <Stack.Navigator
-
-      >
-        <Stack.Screen name="Startpage" component={Startpage} options={{ headerShown: false }} />
-        <Stack.Screen name="Map" component={Map}   
-        options={{
-          title: 'Map',
-          headerTitleAlign: 'center',
-          headerRight: (props) => (
-              <MenuButton {...props} onPress={() => alert('Open menu')} />
-            ),
-        }}/>
-        <Stack.Screen name="Information" component={Information} 
-          options={{
-          title: 'Information',
-          headerTitleAlign: 'center',
-          
-        }}
-        />
-        <Stack.Screen name="Plan" component={Plan} 
-          options={{
-          title: 'Plan',
-          headerTitleAlign: 'center',
-        }}
-        />
-        <Stack.Screen name="Event1" component={Event1} 
-          options={{
-          title: 'Veranstaltung',
-          headerTitleAlign: 'center',
-        }}
-        />
-      </Stack.Navigator>
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Startpage">
+        <Drawer.Screen options={{ headerShown: false, headerTitleAlign: 'center',drawerLabel: () => null,   drawerItemStyle: { display: 'none' } }} name="Startpage" component={Startpage} />
+        <Drawer.Screen options={{ headerTitleAlign: 'center', drawerLabel: () => null,   drawerItemStyle: { display: 'none' }}}  name="Map" component={Map} />
+        <Drawer.Screen  options={{ headerTitleAlign: 'center'}} name="Information" component={Information} />
+        <Drawer.Screen   options={{ headerTitleAlign: 'center'}} name="Plan" component={Plan} />
+        <Drawer.Screen   options={{ headerTitleAlign: 'center'}} name="Event1" component={Event1} />
+      </Drawer.Navigator>
     </NavigationContainer>
-   
-    </>
-   
   );
 }
 
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    width: '100%',
-    height: '100%',
-  },
   menuButton: {
     marginLeft: 16,
+  },
+  footerButton: {
+    backgroundColor: 'blue',
+    padding: 16,
+    borderRadius: 32,
+    position: 'absolute',
+    bottom: 32,
+    right: 32,
   },
 });
