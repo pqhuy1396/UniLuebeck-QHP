@@ -3,7 +3,7 @@ import { StyleSheet, View, Modal, Text } from 'react-native';
 import { NativeBaseProvider } from 'native-base';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import { useSelector } from 'react-redux';
-
+import Modal1 from './Modal';
 
 export default function Map({ route }) {
   const stadtLuebeckCoords = { latitude: 53.86893, longitude: 10.68729, latitudeDelta: 0.01, longitudeDelta: 0.01 };
@@ -67,22 +67,23 @@ export default function Map({ route }) {
       setFilteredMarkers(filtered);
     }
   }, [markers, route.params]);
-  
+  const handleMarkerPress = (title) => {
+    setSelectedMarker(title);
+    setModalVisible(true);
+  };
+
   const MarkerComponent = ({ title, coordinate, pinColor }) => (
     <Marker
       coordinate={coordinate}
       pinColor={pinColor}
-      onCalloutPress={() => {
-        setSelectedMarker(title);
-        setModalVisible(true);
-      }}
+      onCalloutPress={() => handleMarkerPress(title)}
       showCallout
     >
       <Callout >
-              <View style={styles.calloutContainer}>
-                <Text style={styles.calloutText}>{title}</Text>
-              </View>
-            </Callout>
+        <View style={styles.calloutContainer}>
+          <Text style={styles.calloutText}>{title}</Text>
+        </View>
+      </Callout>
     </Marker>
   );
   return (
@@ -97,14 +98,11 @@ export default function Map({ route }) {
           />
         ))}
       </MapView>
-      <Modal visible={modalVisible} animationType="slide" transparent={true}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalText}>Selected Marker: {selectedMarker}</Text>
-            <Text style={styles.closeButton} onPress={() => setModalVisible(false)}>Close</Text>
-          </View>
-        </View>
-      </Modal>
+      <Modal1
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        selectedMarker={selectedMarker}
+      />
     </NativeBaseProvider>
   );
 }
