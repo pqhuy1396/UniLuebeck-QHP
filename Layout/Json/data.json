@@ -1,0 +1,42 @@
+{
+    "locations": [
+      {
+        "title": "Marienkirche",
+        "coordinate": { "latitude": 53.8677651, "longitude": 10.6824448 },
+        "category": "Kirche",
+        "pinColor": "red",
+        "description": "Description of Location 1",
+        "website": "https://st-marien-luebeck.de/page/11/die-marienkirche-l%C3%BCbeck",
+        "phoneNumber": "+49451397700",
+        "openingTime": "9:00 AM - 6:00 PM",
+        "location": "Marienkirchhof 1, 23552 Lübeck, Deutschland",
+        "price": "$$$",
+        "pictures": [
+          "https://www.example.com/images/pic1.jpg",
+          "https://www.example.com/images/pic2.jpg",
+          "https://www.example.com/images/pic3.jpg"
+        ]
+      },
+      {
+        "title": "Kanalstraße Skatepark",
+        "coordinate": {
+          "latitude": 53.86893,
+          "longitude": 10.68729
+        },
+        "category": "Park",
+        "pinColor": "green",
+        "description": "Description of Location 2",
+        "website": "https://www.example.com",
+        "phoneNumber": "+1234567890",
+        "openingTime": "10:00 AM - 8:00 PM",
+        "location": "Kanalstraße 57, 23552 Lübeck, Deutschland",
+        "price": "$$",
+        "pictures": [
+          "https://www.example.com/images/pic4.jpg",
+          "https://www.example.com/images/pic5.jpg",
+          "https://www.example.com/images/pic6.jpg"
+        ]
+      }
+    ]
+  }
+  
