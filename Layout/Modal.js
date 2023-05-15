@@ -1,7 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import { Box, AspectRatio, Image, Stack, Center, Heading, HStack } from 'native-base';
+import { StyleSheet, View, Text} from 'react-native';
+import { Box, AspectRatio, Image, Stack, Center, Heading, HStack , Button  } from 'native-base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 export default function Modal({ visible, onClose, selectedMarker }) {
   if (!visible) {
@@ -15,11 +18,27 @@ export default function Modal({ visible, onClose, selectedMarker }) {
     return null;
   }
 
-  const { title, location, description } = selectedLocation;
+  const { title, location, description,price } = selectedLocation;
+  
+  const handleAddToPlan = async () => {
+    try {
+      const existingPlansString = await AsyncStorage.getItem('plans');
+      const existingPlans = JSON.parse(existingPlansString) || [];
+      
+      if (existingPlans.some((plan) => plan.title === selectedLocation.title)) {
+        console.log('Selected location already exists in plans.');
+        return;
+      }
+      
+      const updatedPlans = [...existingPlans, selectedLocation];
+      await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+      
+      console.log('Selected location saved successfully.');
 
-  const handleAddToPlan = () => {
-    // Implement the logic to pass the selectedMarker to the Plan page here
-    // You can use a state management solution like Redux or React Context to store and share the selected marker data
+      onClose();
+    } catch (error) {
+      console.log('Error saving selected location:', error);
+    }
   };
 
   return (
@@ -66,14 +85,20 @@ export default function Modal({ visible, onClose, selectedMarker }) {
             <HStack alignItems="center" space={4} justifyContent="space-between">
               <HStack alignItems="center">
                 <Text color="coolGray.600" _dark={{ color: "warmGray.200" }} fontWeight="400">
-                  6 mins ago
+                  {price}
                 </Text>
               </HStack>
             </HStack>
           </Stack>
         </Box>
-        <Button title="Add" onPress={handleAddToPlan} />
-        <Button title="Close" onPress={onClose} />
+        <Button.Group space={2}>
+              <Button variant="ghost" colorScheme="blueGray" onPress={onClose}>
+                Cancel
+              </Button>
+              <Button onPress={handleAddToPlan}>
+                Save
+              </Button>
+            </Button.Group>
       </View>
     </View>
   );

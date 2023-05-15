@@ -18,7 +18,7 @@ export default function Startpage () {
      <View style={styles.opacity}>
       <Text style={styles.title}  fontSize="5xl">Smartphone App für Stadtführung und Routenplanung in Lübeck</Text>
       <Button colorScheme="success" style={styles.button} onPress={handleStartPress}>
-      Start
+      Los geht
       </Button>
       </View>
     </ImageBackground>

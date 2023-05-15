@@ -1,34 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
-import { NativeBaseProvider } from 'native-base';
-const plans = [
-  { id: 1, title: 'Plan 1', description: 'This is the first plan' },
-  { id: 2, title: 'Plan 2', description: 'This is the second plan' },
-  { id: 3, title: 'Plan 3', description: 'This is the third plan' },
-  { id: 4, title: 'Plan 4', description: 'This is the fourth plan' },
-  { id: 5, title: 'Plan 5', description: 'This is the fifth plan' },
-];
+import { NativeBaseProvider, Box, Button } from 'native-base';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 export default function Plan() {
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [plans, setPlans] = useState([]);
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
   const renderItem = ({ item }) => (
     <View style={styles.planItem}>
       <Text style={styles.planTitle}>{item.title}</Text>
       <Text style={styles.planDescription}>{item.description}</Text>
+      <Button onPress={() => deleteItem(item)} variant="outline" colorScheme="danger">
+        Delete
+      </Button>
     </View>
   );
 
+  const deleteItem = async (item) => {
+    try {
+      const updatedPlans = plans.filter((plan) => plan.title !== item.title);
+      setPlans(updatedPlans);
+      await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+    } catch (error) {
+      console.log('Error deleting item:', error);
+    }
+  };
+
+  useEffect(() => {
+    const getPlansFromStorage = async () => {
+      try {
+        const plansString = await AsyncStorage.getItem('plans');
+        const plansArray = JSON.parse(plansString);
+        setPlans(plansArray || []);
+      } catch (error) {
+        console.log('Error retrieving plans:', error);
+      }
+    };
+
+    getPlansFromStorage();
+  }, [isFocused]);
+
   return (
     <NativeBaseProvider>
-    <View style={styles.container}>
-      <FlatList
-        data={plans}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        extraData={selectedPlan}
-      />
-    </View>
+      <View style={styles.container}>
+        <FlatList
+          data={plans}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.title}
+          extraData={selectedPlan}
+        />
+      </View>
+      <Box safeAreaBottom backgroundColor="#fff">
+        <Box flexDirection="row" justifyContent="center" alignItems="center" height={50}>
+          <Button onPress={() => navigation.navigate('Map')} variant="ghost">
+            Map
+          </Button>
+        </Box>
+      </Box>
     </NativeBaseProvider>
   );
 }

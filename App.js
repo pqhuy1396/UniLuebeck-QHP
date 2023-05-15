@@ -23,7 +23,7 @@ export default function App() {
         <Drawer.Screen options={{ headerTitleAlign: 'center', drawerLabel: () => null,   drawerItemStyle: { display: 'none' }}}  name="Map" component={Map} />
         <Drawer.Screen  options={{ headerTitleAlign: 'center'}} name="Information" component={Information} />
         <Drawer.Screen   options={{ headerTitleAlign: 'center'}} name="Plan" component={Plan} />
-        <Drawer.Screen   options={{ headerTitleAlign: 'center'}} name="Event1" component={Event1} />
+        <Drawer.Screen   options={{ headerTitleAlign: 'center'}} name="Veranstaltung" component={Event1} />
       </Drawer.Navigator>
     </NavigationContainer>
     </ReduxProvider>

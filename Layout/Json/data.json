@@ -2,7 +2,7 @@
     "locations": [
       {
         "title": "Marienkirche",
-        "coordinate": { "latitude": 53.8677651, "longitude": 10.6824448 },
+        "coordinate": { "latitude": 53.86789, "longitude": 10.6852982 },
         "category": "Kirche",
         "pinColor": "red",
         "description": "Description of Location 1",
@@ -20,8 +20,8 @@
       {
         "title": "Kanalstraße Skatepark",
         "coordinate": {
-          "latitude": 53.86893,
-          "longitude": 10.68729
+          "latitude": 53.8665541,
+          "longitude": 10.6955
         },
         "category": "Park",
         "pinColor": "green",
