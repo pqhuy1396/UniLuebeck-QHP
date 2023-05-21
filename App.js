@@ -8,6 +8,7 @@ import Map from './Layout/Map';
 import Information from './Layout/Information';
 import Plan from './Layout/Plan';
 import Event1 from './Layout/Event1';
+import PlanDetail from './Layout/PlanDetail';
 import { ReduxProvider } from './redux/store';
 
 const Drawer = createDrawerNavigator();
@@ -24,6 +25,7 @@ export default function App() {
         <Drawer.Screen  options={{ headerTitleAlign: 'center'}} name="Information" component={Information} />
         <Drawer.Screen   options={{ headerTitleAlign: 'center'}} name="Plan" component={Plan} />
         <Drawer.Screen   options={{ headerTitleAlign: 'center'}} name="Veranstaltung" component={Event1} />
+        <Drawer.Screen options={{ headerTitleAlign: 'center', drawerLabel: () => null,   drawerItemStyle: { display: 'none' }}} name="Plan Detail"  component={PlanDetail} />
       </Drawer.Navigator>
     </NavigationContainer>
     </ReduxProvider>

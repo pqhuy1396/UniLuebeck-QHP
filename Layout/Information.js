@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { NativeBaseProvider, Box, AspectRatio, Button, Select, Image, Stack, Center, Heading } from 'native-base';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +14,10 @@ export default function Information() {
   );
 
   const categories = ['All', ...new Set(data.map((location) => location.category))];
+
+  const navigateToPlanDetail = (selectedLocation) => {
+    navigation.navigate('Plan Detail', { item: selectedLocation });
+  };
 
   return (
     <NativeBaseProvider>
@@ -33,35 +37,37 @@ export default function Information() {
         <ScrollView contentContainerStyle={styles.cardsContainer}>
         <Stack space={4}>
           {filteredData.map((location, index) => (      
-            <Box key={index} maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1"
-              _dark={{ borderColor: "coolGray.600", backgroundColor: "gray.700" }}
-              _web={{ shadow: 2, borderWidth: 0 }}
-              _light={{ backgroundColor: "gray.50" }}>
-              <Box>
-                <AspectRatio w="100%" ratio={16 / 9}>
-                  <Image source={{ uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg" }} alt="image" />
-                </AspectRatio>
-                <Center bg="violet.500" _dark={{ bg: "violet.400" }}
-                  _text={{ color: "warmGray.50", fontWeight: "700", fontSize: "xs" }} position="absolute" bottom="0" px="3" py="1.5">
-                  PHOTOS
-               </Center>
-              </Box>
-              <Stack p="4" space={3}>
-                <Stack space={2}>
-                  <Heading size="md" ml="-1">
-                    {location.title}
-                  </Heading>
-                  <Text fontSize="xs" _light={{ color: "violet.500" }} _dark={{ color: "violet.400" }} fontWeight="500" ml="-0.5" mt="-1">
-                    {location.location}
+            <TouchableOpacity key={index} onPress={() => navigateToPlanDetail(location)}>
+              <Box maxW="80" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1"
+                _dark={{ borderColor: "coolGray.600", backgroundColor: "gray.700" }}
+                _web={{ shadow: 2, borderWidth: 0 }}
+                _light={{ backgroundColor: "gray.50" }}>
+                <Box>
+                  <AspectRatio w="100%" ratio={16 / 9}>
+                    <Image source={{ uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg" }} alt="image" />
+                  </AspectRatio>
+                  <Center bg="violet.500" _dark={{ bg: "violet.400" }}
+                    _text={{ color: "warmGray.50", fontWeight: "700", fontSize: "xs" }} position="absolute" bottom="0" px="3" py="1.5">
+                    PHOTOS
+                 </Center>
+                </Box>
+                <Stack p="4" space={3}>
+                  <Stack space={2}>
+                    <Heading size="md" ml="-1">
+                      {location.title}
+                    </Heading>
+                    <Text fontSize="xs" _light={{ color: "violet.500" }} _dark={{ color: "violet.400" }} fontWeight="500" ml="-0.5" mt="-1">
+                      {location.location}
+                    </Text>
+                  </Stack>
+                  <Text fontWeight="400">
+                    {location.description}
                   </Text>
                 </Stack>
-                <Text fontWeight="400">
-                  {location.description}
-                </Text>
-              </Stack>
-            </Box>        
+              </Box>
+            </TouchableOpacity>
           ))}
-           </Stack>
+        </Stack>
         </ScrollView>
       </View>
       <Box safeAreaBottom backgroundColor="#fff">

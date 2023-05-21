@@ -3,6 +3,8 @@ import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { NativeBaseProvider, Box, Button } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { SwipeListView } from 'react-native-swipe-list-view';
+
 
 export default function Plan() {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -11,15 +13,32 @@ export default function Plan() {
   const isFocused = useIsFocused();
 
   const renderItem = ({ item }) => (
-    <View style={styles.planItem}>
-      <Text style={styles.planTitle}>{item.title}</Text>
-      <Text style={styles.planDescription}>{item.description}</Text>
-      <Button onPress={() => deleteItem(item)} variant="outline" colorScheme="danger">
-        Delete
-      </Button>
-    </View>
+    <SwipeListView
+      data={[item]}
+      renderItem={({ item }) => (
+        <View style={styles.planItem}>
+          <Text style={styles.planTitle}>{item.title}</Text>
+        </View>
+      )}
+      renderHiddenItem={({ item }) => (
+        <View style={styles.hiddenItem}>
+          <Button onPress={() => moreInformation(item)} colorScheme="success" style={styles.hiddenButton}>
+            Mehr
+          </Button>
+          <Button onPress={() => deleteItem(item)}  colorScheme="danger" style={styles.hiddenButton}>
+            Delete
+          </Button>
+        </View>
+      )}
+      rightOpenValue={-120}
+      disableRightSwipe={true}
+    />
   );
-
+  
+  const moreInformation = (item) => {
+    navigation.navigate('Plan Detail', { item });
+  };
+  
   const deleteItem = async (item) => {
     try {
       const updatedPlans = plans.filter((plan) => plan.title !== item.title);
@@ -68,13 +87,15 @@ export default function Plan() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    backgroundColor: '#eee',
     justifyContent: 'center',
   },
   planItem: {
     padding: 20,
+    backgroundColor: '#F8F4EA',
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    
   },
   planTitle: {
     fontSize: 18,
@@ -84,5 +105,15 @@ const styles = StyleSheet.create({
   planDescription: {
     fontSize: 16,
     color: '#666',
+  },
+  hiddenItem: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  hiddenButton: {
+    height: '100%',
+    justifyContent: 'center',
   },
 });

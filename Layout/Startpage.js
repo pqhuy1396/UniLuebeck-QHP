@@ -7,7 +7,7 @@ export default function Startpage () {
   const navigation = useNavigation();
 
   function handleStartPress() {
-    navigation.navigate('Map');
+    navigation.navigate('Information');
   }
   return (
     <NativeBaseProvider>
