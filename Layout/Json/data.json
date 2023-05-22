@@ -1,42 +1,47 @@
 {
-    "locations": [
-      {
-        "title": "Marienkirche",
-        "coordinate": { "latitude": 53.86789, "longitude": 10.6852982 },
-        "category": "Kirche",
-        "pinColor": "red",
-        "description": "Description of Location 1",
-        "website": "https://st-marien-luebeck.de/page/11/die-marienkirche-l%C3%BCbeck",
-        "phoneNumber": "+49451397700",
-        "openingTime": "9:00 AM - 6:00 PM",
-        "location": "Marienkirchhof 1, 23552 Lübeck, Deutschland",
-        "price": "$$$",
-        "pictures": [
-          "https://www.example.com/images/pic1.jpg",
-          "https://www.example.com/images/pic2.jpg",
-          "https://www.example.com/images/pic3.jpg"
-        ]
+  "locations": [
+    {
+      "title": "Marienkirche",
+      "coordinate": { "latitude": 53.86789, "longitude": 10.6852982 },
+      "category": "Kirche",
+      "pinColor": "red",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of  (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.      ",
+      "website": "https://st-marien-luebeck.de/page/11/die-marienkirche-l%C3%BCbeck",
+      "phoneNumber": "+49451397700",
+      "Time": "9:00 - 18:00",
+      "openingTime": {
+        "start": "10:00",
+        "end": "18:00"
       },
-      {
-        "title": "Kanalstraße Skatepark",
-        "coordinate": {
-          "latitude": 53.8665541,
-          "longitude": 10.6955
-        },
-        "category": "Park",
-        "pinColor": "green",
-        "description": "Description of Location 2",
-        "website": "https://www.example.com",
-        "phoneNumber": "+1234567890",
-        "openingTime": "10:00 AM - 8:00 PM",
-        "location": "Kanalstraße 57, 23552 Lübeck, Deutschland",
-        "price": "$$",
-        "pictures": [
-          "https://www.example.com/images/pic4.jpg",
-          "https://www.example.com/images/pic5.jpg",
-          "https://www.example.com/images/pic6.jpg"
-        ]
-      }
-    ]
-  }
-  
+      "location": "Marienkirchhof 1, 23552 Lübeck, Deutschland",
+      "price": "10$",
+      "pictures": [
+        "https://www.eurob.org/wp-content/blogs.dir/sites/203/de_luebeck_st-marien-kirche_foto_thomas_berg-1.jpg",
+        "https://wir-sind-luebeck.de/wp-content/uploads/2019/10/hoechste-backsteingewoelbe-weltweit.jpg"
+      ]
+    },
+    {
+      "title": "Kanalstraße Skatepark",
+      "coordinate": {
+        "latitude": 53.8665541,
+        "longitude": 10.6955
+      },
+      "category": "Park",
+      "pinColor": "green",
+      "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)",
+      "website": "https://www.example.com",
+      "phoneNumber": "+1234567890",
+      "openingTime": {
+        "start": "10:00",
+        "end": "20:00"
+      },
+      "Time":"10:00 - 20:00",
+      "location": "Kanalstraße 57, 23552 Lübeck, Deutschland",
+      "price": "10$",
+      "pictures": [
+        "https://bilder.spielplatztreff.de/spielplatzbild/spielplatz-kanalstrasse-hundestrasse-in-luebeck_1245098973956.jpg",
+        "https://www.ln-online.de/resizer/gIZnPY03GeyaQxcrgSgwyDqddXM=/1200x675/filters:quality(70)/cloudfront-eu-central-1.images.arcpublishing.com/madsack/X5UVM7F2HTLSXVHXUID2P5FHTI.jpg"
+      ]
+    }
+  ]
+}

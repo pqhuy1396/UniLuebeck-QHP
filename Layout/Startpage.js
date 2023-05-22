@@ -17,9 +17,11 @@ export default function Startpage () {
     >
      <View style={styles.opacity}>
       <Text style={styles.title}  fontSize="5xl">Smartphone App für Stadtführung und Routenplanung in Lübeck</Text>
-      <Button colorScheme="success" style={styles.button} onPress={handleStartPress}>
+      <View style={styles.button}>
+      <Button colorScheme="success" onPress={handleStartPress}>
       Los geht
       </Button>
+      </View>
       </View>
     </ImageBackground>
     </NativeBaseProvider>
@@ -42,11 +44,11 @@ const styles = StyleSheet.create({
   },
   title: {
     width: "80%",
-    height: "60%",
+    height: "70%",
     color: "black",
   },
   button: {
     width: "50%",
-    
+    paddingTop: 40,
   }
 });

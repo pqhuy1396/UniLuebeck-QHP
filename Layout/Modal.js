@@ -18,7 +18,7 @@ export default function Modal({ visible, onClose, selectedMarker }) {
     return null;
   }
 
-  const { title, location, description,price } = selectedLocation;
+  const { title, location, description,price, pictures } = selectedLocation;
   
   const handleAddToPlan = async () => {
     try {
@@ -56,7 +56,7 @@ export default function Modal({ visible, onClose, selectedMarker }) {
         >
           <Box>
             <AspectRatio w="100%" ratio={16 / 9}>
-            <Image source={{ uri: "https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg" }} alt="image" />
+            <Image source={{ uri: pictures[0] }} alt="image" />
             </AspectRatio>
             <Center
               bg="violet.500"
