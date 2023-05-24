@@ -42,6 +42,29 @@
         "https://bilder.spielplatztreff.de/spielplatzbild/spielplatz-kanalstrasse-hundestrasse-in-luebeck_1245098973956.jpg",
         "https://www.ln-online.de/resizer/gIZnPY03GeyaQxcrgSgwyDqddXM=/1200x675/filters:quality(70)/cloudfront-eu-central-1.images.arcpublishing.com/madsack/X5UVM7F2HTLSXVHXUID2P5FHTI.jpg"
       ]
+    },
+    {
+      "title": "Dom zu Lübeck",
+      "coordinate": {
+        "latitude": 53.8611953,
+        "longitude": 10.6861646
+      },
+      "category": "Kirche",
+      "pinColor": "red",
+      "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)",
+      "website": "https://www.domzuluebeck.de/",
+      "phoneNumber": "045174704",
+      "openingTime": {
+        "start": "10:00",
+        "end": "16:00"
+      },
+      "Time":"10:00 - 16:00",
+      "location": "Mühlendamm 2-6, 23552 Lübeck",
+      "price": "10$",
+      "pictures": [
+        "https://www.nordkirche.de/fileadmin/_processed_/e/5/csm_Dom_Luebeck_Trave_pixabay__Manfred_Zajac_13d543ef8b.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg/300px-L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg"
+      ]
     }
   ]
 }

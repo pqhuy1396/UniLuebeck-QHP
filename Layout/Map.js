@@ -76,7 +76,7 @@ export default function Map({ route }) {
     <Marker
       coordinate={coordinate}
       pinColor={pinColor}
-      onCalloutPress={() => handleMarkerPress(title)}
+      onPress={() => handleMarkerPress(title)}
       showCallout
     >
       <Callout >

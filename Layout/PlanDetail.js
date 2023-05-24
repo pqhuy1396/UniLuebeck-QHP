@@ -54,41 +54,46 @@ const PlanDetail = ({ route }) => {
     }
   };
   const calculateTimeDifference = () => {
-    const openingTimeText = item.openingTime.start;
-    const openingTimeParts = openingTimeText.split(':');
-    const openingTime = new Date();
-    openingTime.setHours(Number(openingTimeParts[0]));
-    openingTime.setMinutes(Number(openingTimeParts[1]));
-    
-    const currentTime = new Date();
-    
-    if (currentTime < openingTime) {
-      // Calculate time until the door opens
-      const timeDifference = openingTime - currentTime;
-      const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
-      return (
-        <Text style={[styles.location, { color: 'red' }]}>
-          {`abgeschlossen, es wird${hours}:${minutes < 10 ? '0' : ''}${minutes} bis sich geöffnet`}
-        </Text>
-      );
-    } else {
-      // Calculate time until the door closes
-      const closingTimeText = item.openingTime.end;
-      const closingTimeParts = closingTimeText.split(':');
+    if (item.openingTime && item.openingTime.start && item.openingTime.end) {
+      const currentTime = new Date();
+      const openingTimeParts = item.openingTime.start.split(':');
+      const closingTimeParts = item.openingTime.end.split(':');
+  
+      const openingTime = new Date();
+      openingTime.setHours(Number(openingTimeParts[0]));
+      openingTime.setMinutes(Number(openingTimeParts[1]));
+  
       const closingTime = new Date();
       closingTime.setHours(Number(closingTimeParts[0]));
       closingTime.setMinutes(Number(closingTimeParts[1]));
-      const timeDifference = closingTime - currentTime;
-      const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
-      return (
-        <Text style={[styles.location, { color: 'green' }]}>
-          {`öffnet, es wird ${hours}:${minutes < 10 ? '0' : ''}${minutes} bis sich schließt`}
-        </Text>
-      );
+  
+      if (currentTime < openingTime || currentTime > closingTime) {
+        const timeDifference = currentTime < openingTime ? openingTime - currentTime : currentTime - closingTime;
+        const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+        const status = currentTime < openingTime ? 'es wird noch' : 'abgeschlossen, es hat vor';
+  
+        return (
+          <Text style={[styles.location, { color: 'red' }]}>
+            {`${status} ${hours}:${minutes < 10 ? '0' : ''}${minutes} ${currentTime < openingTime ? 'geöffnet' : 'geschlossen'}`}
+          </Text>
+        );
+      } else {
+        const timeDifference = closingTime - currentTime;
+        const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+  
+        return (
+          <Text style={[styles.location, { color: 'green' }]}>
+            {`öffnet, es wird ${hours}:${minutes < 10 ? '0' : ''}${minutes} bis sich schließt`}
+          </Text>
+        );
+      }
+    } else {
+      return null;
     }
   };
+  
   
   
   
@@ -110,7 +115,6 @@ const PlanDetail = ({ route }) => {
             {item.location && <Text style={styles.location}>{item.location}</Text>}
             {item.Time && <Text style={styles.location}>{item.Time}</Text>}
             <Text style={styles.location}>{calculateTimeDifference()}</Text>
-            {item.price && <Text style={styles.location}>{item.price}</Text>}
         </View>
         
         <View style={styles.detailsContainer}>

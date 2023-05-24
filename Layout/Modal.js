@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text, ScrollView} from 'react-native';
 import { Box, AspectRatio, Image, Stack, Center, Heading, HStack , Button  } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -79,9 +79,7 @@ export default function Modal({ visible, onClose, selectedMarker }) {
                 {location}
               </Text>
             </Stack>
-            <Text fontWeight="400">
-              {description}
-            </Text>
+           
             <HStack alignItems="center" space={4} justifyContent="space-between">
               <HStack alignItems="center">
                 <Text color="coolGray.600" _dark={{ color: "warmGray.200" }} fontWeight="400">

@@ -22,10 +22,10 @@ export default function Plan() {
       )}
       renderHiddenItem={({ item }) => (
         <View style={styles.hiddenItem}>
-          <Button onPress={() => moreInformation(item)} colorScheme="success" style={styles.hiddenButton}>
+          <Button onPress={() => moreInformation(item)} borderRadius="none" colorScheme="success" style={styles.hiddenButton}>
             Mehr
           </Button>
-          <Button onPress={() => deleteItem(item)}  colorScheme="danger" style={styles.hiddenButton}>
+          <Button onPress={() => deleteItem(item)} borderRadius="none" colorScheme="danger" style={styles.hiddenButton}>
             Delete
           </Button>
         </View>
