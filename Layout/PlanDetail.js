@@ -42,6 +42,20 @@ const PlanDetail = ({ route }) => {
     }
   };
 
+  const deletePlan = async () => {
+    try {
+      const storedPlans = await AsyncStorage.getItem('plans');
+      if (storedPlans) {
+        const parsedPlans = JSON.parse(storedPlans);
+        const updatedPlans = parsedPlans.filter((plan) => plan.title !== item.title);
+        await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+        setPlanAdded(false);
+      }
+    } catch (error) {
+      console.log('Error deleting plan from AsyncStorage:', error);
+    }
+  };
+
   const openWebsite = () => {
     if (item.website) {
       Linking.openURL(item.website);
@@ -66,8 +80,14 @@ const PlanDetail = ({ route }) => {
       const closingTime = new Date();
       closingTime.setHours(Number(closingTimeParts[0]));
       closingTime.setMinutes(Number(closingTimeParts[1]));
-  
-      if (currentTime < openingTime || currentTime > closingTime) {
+      if (item.openingTime.start === item.openingTime.end){
+        return (
+          <Text style={[styles.location, { color: 'green' }]}>
+            {`24 Stunden geöffnet`}
+          </Text>
+        );
+      }
+      else if (currentTime < openingTime || currentTime > closingTime) {
         const timeDifference = currentTime < openingTime ? openingTime - currentTime : currentTime - closingTime;
         const hours = Math.floor(timeDifference / (1000 * 60 * 60));
         const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
@@ -85,7 +105,7 @@ const PlanDetail = ({ route }) => {
   
         return (
           <Text style={[styles.location, { color: 'green' }]}>
-            {`öffnet, es wird ${hours}:${minutes < 10 ? '0' : ''}${minutes} bis sich schließt`}
+            {`öffnet, es wird im ${hours}:${minutes < 10 ? '0' : ''}${minutes} schließen`}
           </Text>
         );
       }
@@ -93,9 +113,6 @@ const PlanDetail = ({ route }) => {
       return null;
     }
   };
-  
-  
-  
   
 
   return (
@@ -130,17 +147,23 @@ const PlanDetail = ({ route }) => {
         </ScrollView>
       </View>
       <Box safeAreaBottom backgroundColor="#fff">
-        <Box flexDirection="row" justifyContent="center" alignItems="center" height={50}>
+        <Box flexDirection="row" justifyContent="space-between" alignItems="center" height={50} paddingHorizontal={100}>
           <Button onPress={() => navigation.navigate('Map')} variant="ghost">
             Map
           </Button>
-          {!planAdded && (
-          <Button onPress={addPlan} size="sm" colorScheme="primary" style={styles.addButton}>
-            Add Plan
-          </Button>
-        )}
+          {!planAdded ? (
+            <Button onPress={addPlan} size="sm" colorScheme="primary" style={styles.addButton}>
+              Add Plan
+            </Button>
+          ) : 
+          (
+            <Button onPress={deletePlan} size="sm" colorScheme="danger" style={styles.addButton}>
+              Delete
+            </Button>
+          )}
         </Box>
       </Box>
+
     </NativeBaseProvider>
   );
 };
@@ -202,7 +225,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 8,
     color: 'green',
-  },
+  }
 });
 
 export default PlanDetail;
