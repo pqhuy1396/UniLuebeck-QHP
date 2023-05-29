@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, Linking, StyleSheet,ScrollView } from 'react-native';
+import { View, Text, Image, Linking, StyleSheet,ScrollView,TouchableOpacity, Modal } from 'react-native';
 import { NativeBaseProvider, Button, Box } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import { FontAwesome } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const PlanDetail = ({ route }) => {
   const { item } = route.params;
   const [planAdded, setPlanAdded] = useState(false);
+  const [visitTimeAdded, setVisitTimeAdded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [selectedTime, setSelectedTime] = useState(null);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
 
@@ -23,7 +30,15 @@ const PlanDetail = ({ route }) => {
       if (storedPlans) {
         const parsedPlans = JSON.parse(storedPlans);
         const planExists = parsedPlans.find((plan) => plan.title === item.title);
-        planExists ? setPlanAdded(true) : setPlanAdded(false);
+        if (planExists) {
+          setPlanAdded(true);
+          if (planExists.visitTime) {
+            setVisitTimeAdded(true);
+          }
+        } else {
+          setPlanAdded(false);
+          setVisitTimeAdded(false);
+        }
       }
     } catch (error) {
       console.log('Error checking plan in AsyncStorage:', error);
@@ -37,6 +52,7 @@ const PlanDetail = ({ route }) => {
       parsedPlans.push(item);
       await AsyncStorage.setItem('plans', JSON.stringify(parsedPlans));
       setPlanAdded(true);
+      setVisitTimeAdded(false);
     } catch (error) {
       console.log('Error adding plan to AsyncStorage:', error);
     }
@@ -50,6 +66,7 @@ const PlanDetail = ({ route }) => {
         const updatedPlans = parsedPlans.filter((plan) => plan.title !== item.title);
         await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
         setPlanAdded(false);
+        setVisitTimeAdded(false);
       }
     } catch (error) {
       console.log('Error deleting plan from AsyncStorage:', error);
@@ -113,6 +130,63 @@ const PlanDetail = ({ route }) => {
       return null;
     }
   };
+  const handleIconPress = () => {
+    if (planAdded) {
+      setShowModal(true);
+    } else {
+      addPlan();
+    }
+  };
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleDateConfirm = (date) => {
+    setSelectedDate(date);
+    hideDatePicker();
+  };
+
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
+  };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const handleTimeConfirm = (time) => {
+    setSelectedTime(time);
+    hideTimePicker();
+  };
+  const handleVisitTimeAdd = async () => {
+    try {
+      const storedPlans = await AsyncStorage.getItem('plans');
+      if (storedPlans) {
+        const parsedPlans = JSON.parse(storedPlans);
+        const updatedPlans = parsedPlans.map((plan) => {
+          if (plan.title === item.title) {
+            return {
+              ...plan,
+              visitTime: {
+                date: selectedDate,
+                time: selectedTime,
+              },
+            };
+          }
+          return plan;
+        });
+        await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+        setVisitTimeAdded(true);
+        setShowModal(false);
+      }
+    } catch (error) {
+      console.log('Error adding visit time to plan in AsyncStorage:', error);
+    }
+  };
   
 
   return (
@@ -141,6 +215,13 @@ const PlanDetail = ({ route }) => {
           {item.phoneNumber && (
             <FontAwesome name="phone" size={24} style={styles.icon} onPress={callPhoneNumber} />
           )}
+          <TouchableOpacity onPress={handleIconPress}>
+            {planAdded ? (
+              <FontAwesome name="clock-o" size={24} style={[styles.icon, visitTimeAdded ? styles.greenIcon : styles.redIcon]} />
+            ) : (
+              <FontAwesome name="clock-o" size={24} style={styles.icon} />
+            )}
+          </TouchableOpacity>
         </View>
         <ScrollView style={styles.descriptionContainer}>
           <Text>{item.description}</Text>
@@ -163,7 +244,37 @@ const PlanDetail = ({ route }) => {
           )}
         </Box>
       </Box>
-
+      {showModal && (
+        <Modal visible={showModal} animationType="slide" transparent>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text>Add Visit Time</Text>
+              <Box marginTop={4}>
+                <Button onPress={showDatePicker}>Select Date</Button>
+                <Text>{selectedDate && selectedDate.toDateString()}</Text>
+                <DateTimePickerModal
+                  isVisible={isDatePickerVisible}
+                  mode="date"
+                  onConfirm={handleDateConfirm}
+                  onCancel={hideDatePicker}
+                />
+              </Box>
+              <Box marginTop={4}>
+                <Button onPress={showTimePicker}>Select Time</Button>
+                <Text>{selectedTime && selectedTime.toLocaleTimeString()}</Text>
+                <DateTimePickerModal
+                  isVisible={isTimePickerVisible}
+                  mode="time"
+                  onConfirm={handleTimeConfirm}
+                  onCancel={hideTimePicker}
+                />
+              </Box>
+              <Button onPress={() => handleVisitTimeAdd()}>Add</Button>
+              <Button onPress={() => setShowModal(false)}>Cancel</Button>
+            </View>
+          </View>
+        </Modal>
+      )}
     </NativeBaseProvider>
   );
 };
@@ -225,7 +336,24 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 8,
     color: 'green',
-  }
+  },
+  redIcon: {
+    color: 'red',
+  },
+  greenIcon: {
+    color: 'green',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 8,
+  },
 });
 
 export default PlanDetail;

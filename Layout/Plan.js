@@ -12,29 +12,42 @@ export default function Plan() {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }) => {
+    const hasVisitTime = item.visitTime !== undefined && item.visitTime !== null;
+      const visitTime = hasVisitTime
+        ? `${item.visitTime.date} ${item.visitTime.time}`
+        : "Unknown";
+    return (
+      
     <SwipeListView
       data={[item]}
       renderItem={({ item }) => (
         <View style={styles.planItem}>
           <Text style={styles.planTitle}>{item.title}</Text>
+          {hasVisitTime ? (
+            <Text style={styles.planDescription}>
+            Besuchszeit: {new Date(item.visitTime.date).toLocaleDateString()}  {new Date(item.visitTime.time).toLocaleTimeString()}
+            </Text>
+          ) : (
+            <Text style={styles.planDescriptionDanger}>Location mit unbekannter Besuchszeit</Text>
+          )}
         </View>
       )}
-      renderHiddenItem={({ item }) => (
-        <View style={styles.hiddenItem}>
-          <Button onPress={() => moreInformation(item)} borderRadius="none" colorScheme="success" style={styles.hiddenButton}>
-            Mehr
-          </Button>
-          <Button onPress={() => deleteItem(item)} borderRadius="none" colorScheme="danger" style={styles.hiddenButton}>
-            Delete
-          </Button>
-        </View>
-      )}
-      rightOpenValue={-120}
-      disableRightSwipe={true}
-    />
-  );
-  
+        renderHiddenItem={({ item }) => (
+          <View style={styles.hiddenItem}>
+            <Button onPress={() => moreInformation(item)} borderRadius="none" colorScheme="success" style={styles.hiddenButton}>
+              Mehr
+            </Button>
+            <Button onPress={() => deleteItem(item)} borderRadius="none" colorScheme="danger" style={styles.hiddenButton}>
+              Delete
+            </Button>
+          </View>
+        )}
+        rightOpenValue={-120}
+        disableRightSwipe={true}
+      />
+    );
+  }; 
   const moreInformation = (item) => {
     navigation.navigate('Plan Detail', { item });
   };
@@ -54,7 +67,31 @@ export default function Plan() {
       try {
         const plansString = await AsyncStorage.getItem('plans');
         const plansArray = JSON.parse(plansString);
-        setPlans(plansArray || []);
+
+        // Sort the plans based on the presence of visit time and the visit time values
+        const sortedPlans = plansArray.sort((a, b) => {
+          const aHasVisitTime = a.visitTime !== undefined && a.visitTime !== null;
+          const bHasVisitTime = b.visitTime !== undefined && b.visitTime !== null;
+  
+          if (!aHasVisitTime && !bHasVisitTime) {
+            return 0;
+          } else if (!aHasVisitTime) {
+            return -1;
+          } else if (!bHasVisitTime) {
+            return 1;
+          } else {
+            const aVisitTime = new Date(a.visitTime.date + " " + a.visitTime.time);
+            const bVisitTime = new Date(b.visitTime.date + " " + b.visitTime.time);
+  
+            if (aVisitTime.getDate() !== bVisitTime.getDate()) {
+              return aVisitTime.getDate() - bVisitTime.getDate();
+            } else {
+              return new Date(a.visitTime.time) - new Date(b.visitTime.time);
+            }
+          }
+        });
+  
+        setPlans(sortedPlans || []);
       } catch (error) {
         console.log('Error retrieving plans:', error);
       }
@@ -62,6 +99,7 @@ export default function Plan() {
 
     getPlansFromStorage();
   }, [isFocused]);
+
 
   return (
     <NativeBaseProvider>
@@ -105,6 +143,10 @@ const styles = StyleSheet.create({
   planDescription: {
     fontSize: 16,
     color: '#666',
+  },
+  planDescriptionDanger: {
+    fontSize: 16,
+    color: '#ff4122',
   },
   hiddenItem: {
     flex: 1,
