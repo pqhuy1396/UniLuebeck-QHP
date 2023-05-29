@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { StyleSheet, View, Text, ScrollView} from 'react-native';
+import { StyleSheet, View, Text} from 'react-native';
 import { Box, AspectRatio, Image, Stack, Center, Heading, HStack , Button  } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,7 +10,7 @@ export default function Modal({ visible, onClose, selectedMarker }) {
   if (!visible) {
     return null;
   }
-
+  const [itemExistsInPlans, setItemExistsInPlans] = useState(false);
   const locations = useSelector((state) => state.data.locations);
   const selectedLocation = locations.find((location) => location.title === selectedMarker);
 
@@ -18,28 +18,51 @@ export default function Modal({ visible, onClose, selectedMarker }) {
     return null;
   }
 
-  const { title, location, description,price, pictures } = selectedLocation;
+  useEffect(() => {
+    const checkItemInPlans = async () => {
+      try {
+        const existingPlansString = await AsyncStorage.getItem('plans');
+        const existingPlans = JSON.parse(existingPlansString) || [];
+        const exists = existingPlans.some((plan) => plan.title === selectedLocation.title);
+        setItemExistsInPlans(exists);
+      } catch (error) {
+        console.log('Error checking item in plans:', error);
+      }
+    };
+
+    checkItemInPlans();
+  }, [selectedLocation]);
+
+
+  const { title, location, pictures } = selectedLocation;
   
   const handleAddToPlan = async () => {
     try {
       const existingPlansString = await AsyncStorage.getItem('plans');
       const existingPlans = JSON.parse(existingPlansString) || [];
-      
-      if (existingPlans.some((plan) => plan.title === selectedLocation.title)) {
-        console.log('Selected location already exists in plans.');
-        return;
+
+      if (itemExistsInPlans) {
+        // Remove the location from plans
+        const updatedPlans = existingPlans.filter((plan) => plan.title !== selectedLocation.title);
+        await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+        console.log('Selected location removed from plans.');
+      } else {
+        // Add the location to plans
+        const updatedPlans = [...existingPlans, selectedLocation];
+        await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+        console.log('Selected location saved to plans.');
       }
-      
-      const updatedPlans = [...existingPlans, selectedLocation];
-      await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
-      
-      console.log('Selected location saved successfully.');
+
+      // Toggle the value of itemExistsInPlans
+      setItemExistsInPlans(!itemExistsInPlans);
 
       onClose();
     } catch (error) {
-      console.log('Error saving selected location:', error);
+      console.log('Error saving or removing selected location:', error);
     }
   };
+  
+
 
   return (
     <View style={styles.modalContainer}>
@@ -79,24 +102,20 @@ export default function Modal({ visible, onClose, selectedMarker }) {
                 {location}
               </Text>
             </Stack>
-           
-            <HStack alignItems="center" space={4} justifyContent="space-between">
-              <HStack alignItems="center">
-                <Text color="coolGray.600" _dark={{ color: "warmGray.200" }} fontWeight="400">
-                  {price}
-                </Text>
-              </HStack>
-            </HStack>
           </Stack>
-        </Box>
-        <Button.Group space={2}>
-              <Button variant="ghost" colorScheme="blueGray" onPress={onClose}>
-                Cancel
+          <Button.Group space={2}>
+              <Button variant="ghost"  onPress={onClose}>
+                Abbrechen
               </Button>
-              <Button onPress={handleAddToPlan}>
-                Save
-              </Button>
+              <Button
+                  onPress={handleAddToPlan}
+                  colorScheme={itemExistsInPlans ? 'red' : 'green'}
+                >
+                  {itemExistsInPlans ? 'Entfernen' : 'Speichern'}
+                </Button>
+
             </Button.Group>
+        </Box>
       </View>
     </View>
   );

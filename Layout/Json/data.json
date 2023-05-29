@@ -13,7 +13,7 @@
         "start": "10:00",
         "end": "18:00"
       },
-      "location": "Marienkirchhof 1, 23552 Lübeck, Deutschland",
+      "location": "Marienkirchhof 1, 23552 Lübeck",
       "price": "10$",
       "pictures": [
         "https://www.eurob.org/wp-content/blogs.dir/sites/203/de_luebeck_st-marien-kirche_foto_thomas_berg-1.jpg",
@@ -36,7 +36,7 @@
         "end": "20:00"
       },
       "Time":"10:00 - 20:00",
-      "location": "Kanalstraße 57, 23552 Lübeck, Deutschland",
+      "location": "Kanalstraße 57, 23552 Lübeck",
       "price": "10$",
       "pictures": [
         "https://bilder.spielplatztreff.de/spielplatzbild/spielplatz-kanalstrasse-hundestrasse-in-luebeck_1245098973956.jpg",
@@ -63,6 +63,29 @@
       "price": "10$",
       "pictures": [
         "https://www.nordkirche.de/fileadmin/_processed_/e/5/csm_Dom_Luebeck_Trave_pixabay__Manfred_Zajac_13d543ef8b.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg/300px-L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg"
+      ]
+    },
+    {
+      "title": "Bürgergärten",
+      "coordinate": {
+        "latitude": 53.870681,
+        "longitude": 10.6909081
+      },
+      "category": "Park",
+      "pinColor": "green",
+      "description": "Einen beschaulichen Ruhepunkt im Herzen der quirligen Altstadt bilden die Bürgergärten in der Königstraße. Der Hof und der Garten des Heiligen-Geist-Hospitals sind öffentlich zugänglich. Bewohner des Altenheims teilen sich die vielen Bänke mit müden Touristen, die dort die Ruhe genießen. Manch ein Lübecker verbringt hier seine Mittagspause. Im Frühjahr blühen die Obstbäume, im Sommer verströmen zahlreiche Rosen ihren Duft.Der Eingang zu den Gärten befindet sich neben dem Heiligen-Geist-Hospital und wird durch das dort stehende Geibel-Denkmal markiert. Der in Lübeck geborene Emanuel Geibel war ein spätromantischer deutscher Dichter und ist Ehrenbürger der Stadt.Einige Schritte weiter östlich beginnt der Garten der Gesellschaft zur Beförderung gemeinnütziger Tätigkeit. Dieser ist im klassizistischen Stil angelegt und trägt die strenge Handschrift prominenter Gartenarchitekten. Mehrere Terrassen und Pergolen bieten sonnige und schattige Rückzugsmöglichkeiten, ein kleiner Wasserlauf sorgt für eine beruhigende Atmosphäre. Die rückwärtige Terrasse des Restaurants Heinrichs lädt bei schönem Wetter zu einer Mahlzeit bei besonderem Ambiente ein.    Der Garten der Gemeinnützigen und der benachbarte Garten des Behnhauses sind mit einer ganzen Reihe moderner Skulpturen geschmückt. Zum Behnhausgarten gehört zudem noch der Ausstellungspavillon der Overbeckgesellschaft, einem Lübecker Kunstverein.Die Gärten der Museen Willy-Brandt-Haus in der Königstraße 21 und Günter-Grass-Haus in der Glockengießer Straße sind ebenfalls miteinander verbunden. Mehrere von dem Schriftsteller und bildenden Künstler Grass geschaffene Skulpturen werden draußen präsentiert und entfalten dort eine besonders eindringliche Wirkung. Mittelfristig soll eine Verbingung von den sehenwerten Museumsgärten zu den Bürgergärten der Königsstraße geschaffen werden.",
+      "website": "NaN",
+      "phoneNumber": "045174704",
+      "openingTime": {
+        "start": "00:00",
+        "end": "00:00"
+      },
+      "Time":"Ganztags geöffnet",
+      "location": "Gerberstraße 8, 23552 Lübeck",
+      "price": "0$",
+      "pictures": [
+        "https://www.luebeck-info.com/img/buergergaerten-1200x798.jpg",
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg/300px-L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg"
       ]
     }
