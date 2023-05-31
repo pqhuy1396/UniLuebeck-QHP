@@ -1,86 +1,55 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { NativeBaseProvider } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
 
-export default function Event1() {
-  const [selectedMonth, setSelectedMonth] = useState('January'); // default selected month is January
+const Event1 = () => {
+  const [termine, setTermine] = useState(null);
+
+  useEffect(() => {
+    fetchTermine();
+  }, []);
+
+  const fetchTermine = async () => {
+    try {
+      const response = await fetch('https://www.wasgehtapp.de/location.php?id=20437', {
+        method: 'POST',
+        headers: {
+          'User-Agent': 'Wasgehtapp-Example-Importer',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer <YOUR_AUTH_TOKEN>',
+        },
+        body: 'locations[]=7&columns[]=beschreibung',
+      });
   
-  // sample events data
-  const eventsData = [
-    {
-      id: 1,
-      title: 'Event 1',
-      month: 'January'
-    },
-    {
-      id: 2,
-      title: 'Event 2',
-      month: 'February'
-    },
-    {
-      id: 3,
-      title: 'Event 3',
-      month: 'March'
-    },
-    {
-      id: 4,
-      title: 'Event 4',
-      month: 'April'
-    },
-    {
-      id: 5,
-      title: 'Event 5',
-      month: 'May'
-    },
-    {
-      id: 6,
-      title: 'Event 6',
-      month: 'June'
+      const data = await response.json();
+  
+      // Process the data
+    } catch (error) {
+      console.log('Error fetching termine:', error);
     }
-  ];
+  };
 
-  // filter events by selected month
-  const filteredEvents = eventsData.filter(event => event.month === selectedMonth);
+  if (termine && termine.error) {
+    return <Text>{termine.error}</Text>;
+  }
+
+  if (!termine || termine.data.length === 0) {
+    return <Text>Keine Termine gefunden!</Text>;
+  }
 
   return (
-    <NativeBaseProvider>
-    
-
-          <View style={styles.monthPicker}>
-            <TouchableOpacity onPress={() => setSelectedMonth('January')}>
-              <Text style={[styles.month, selectedMonth === 'January' && styles.selectedMonth]}>January</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelectedMonth('February')}>
-              <Text style={[styles.month, selectedMonth === 'February' && styles.selectedMonth]}>February</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelectedMonth('March')}>
-              <Text style={[styles.month, selectedMonth === 'March' && styles.selectedMonth]}>March</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelectedMonth('April')}>
-              <Text style={[styles.month, selectedMonth === 'April' && styles.selectedMonth]}>April</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelectedMonth('May')}>
-              <Text style={[styles.month, selectedMonth === 'May' && styles.selectedMonth]}>May</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setSelectedMonth('June')}>
-              <Text style={[styles.month, selectedMonth === 'June' && styles.selectedMonth]}>June</Text>
-            </TouchableOpacity>
-          </View>
-
-    </NativeBaseProvider>
+    <View>
+      {termine.data.map((termin) => (
+        <React.Fragment key={termin.id}>
+          <Text>
+            {strftime('%d.%m.%Y, %H:%M Uhr', strtotime(`${termin.datum} ${termin.zeit}`))}
+          </Text>
+          <Text>{termin.titel}</Text>
+          <Text>{termin.beschreibung}</Text>
+          <View style={{ borderBottomWidth: 1, borderBottomColor: 'gray' }} />
+        </React.Fragment>
+      ))}
+    </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  monthPicker: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-  },
-  month: {
-    fontWeight: 'bold',
-  },
-  selectedMonth: {
-    color: 'blue',
-  },
-});
+export default Event1;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, Linking, StyleSheet,ScrollView,TouchableOpacity, Modal } from 'react-native';
-import { NativeBaseProvider, Button, Box } from 'native-base';
+import { View, Text, Image, Linking, StyleSheet,ScrollView,TouchableOpacity, Modal, TextInput } from 'react-native';
+import { NativeBaseProvider, Button, Box, Divider  } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
@@ -233,7 +233,7 @@ const PlanDetail = ({ route }) => {
             Map
           </Button>
           {!planAdded ? (
-            <Button onPress={addPlan} size="sm" colorScheme="primary" style={styles.addButton}>
+            <Button onPress={addPlan} size="sm" colorScheme="success" style={styles.addButton}>
               Add Plan
             </Button>
           ) : 
@@ -248,10 +248,11 @@ const PlanDetail = ({ route }) => {
         <Modal visible={showModal} animationType="slide" transparent>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text>Add Visit Time</Text>
-              <Box marginTop={4}>
-                <Button onPress={showDatePicker}>Select Date</Button>
-                <Text>{selectedDate && selectedDate.toDateString()}</Text>
+              <Text style={styles.title}>Besuchszeit hinzufügen</Text>
+              <Divider my={2} />
+              <Box flexDirection="row" justifyContent="space-between" alignItems="flex-end" marginTop={4}>
+                <Button width={155} onPress={showDatePicker}>Datum auswählen</Button>
+                <TextInput placeholder="Datum...">{selectedDate && selectedDate.toDateString()}</TextInput>
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"
@@ -259,9 +260,9 @@ const PlanDetail = ({ route }) => {
                   onCancel={hideDatePicker}
                 />
               </Box>
-              <Box marginTop={4}>
-                <Button onPress={showTimePicker}>Select Time</Button>
-                <Text>{selectedTime && selectedTime.toLocaleTimeString()}</Text>
+              <Box flexDirection="row" justifyContent="space-between" alignItems="flex-end" marginTop={4}>
+                <Button width={155} onPress={showTimePicker}>Uhrzeit wählen</Button>
+                <TextInput placeholder="Uhrzeit...">{selectedTime && selectedTime.toLocaleTimeString()}</TextInput>
                 <DateTimePickerModal
                   isVisible={isTimePickerVisible}
                   mode="time"
@@ -269,8 +270,11 @@ const PlanDetail = ({ route }) => {
                   onCancel={hideTimePicker}
                 />
               </Box>
-              <Button onPress={() => handleVisitTimeAdd()}>Add</Button>
-              <Button onPress={() => setShowModal(false)}>Cancel</Button>
+              <Divider mt={6} />
+              <Box mt={3} flexDirection="row" justifyContent="space-between" alignItems="flex-end" height={50} paddingHorizontal={100}>
+                <Button colorScheme="success" mr={5} onPress={() => handleVisitTimeAdd()}>Hinzufügen</Button>
+                <Button variant="ghost" onPress={() => setShowModal(false)}>Abbrechen</Button>
+              </Box>
             </View>
           </View>
         </Modal>
@@ -346,7 +350,6 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
