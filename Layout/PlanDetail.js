@@ -7,6 +7,8 @@ import Swiper from 'react-native-swiper';
 import { FontAwesome } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Platform } from 'react-native';
+
 
 const PlanDetail = ({ route }) => {
   const { item } = route.params;
@@ -84,6 +86,16 @@ const PlanDetail = ({ route }) => {
       Linking.openURL(`tel:${item.phoneNumber}`);
     }
   };
+  const openMapsForDirections = () => {
+    const { latitude, longitude } = item.coordinate;
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+
+      Linking.openURL(url);
+
+  
+  };
+
+
   const calculateTimeDifference = () => {
     if (item.openingTime && item.openingTime.start && item.openingTime.end) {
       const currentTime = new Date();
@@ -222,6 +234,9 @@ const PlanDetail = ({ route }) => {
               <FontAwesome name="clock-o" size={24} style={styles.icon} />
             )}
           </TouchableOpacity>
+          <TouchableOpacity onPress={openMapsForDirections}>
+            <FontAwesome name="map" size={24} style={styles.icon} />
+          </TouchableOpacity>
         </View>
         <ScrollView style={styles.descriptionContainer}>
           <Text>{item.description}</Text>
@@ -278,6 +293,7 @@ const PlanDetail = ({ route }) => {
             </View>
           </View>
         </Modal>
+        
       )}
     </NativeBaseProvider>
   );

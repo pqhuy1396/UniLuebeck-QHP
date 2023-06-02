@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Modal, Text } from 'react-native';
-import { NativeBaseProvider } from 'native-base';
+import { StyleSheet, View, Text } from 'react-native';
+import { Button, NativeBaseProvider } from 'native-base';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import { useSelector } from 'react-redux';
 import Modal1 from './Modal';
+import * as Location from 'expo-location';
 
 export default function Map({ route }) {
   const stadtLuebeckCoords = { latitude: 53.86893, longitude: 10.68729, latitudeDelta: 0.01, longitudeDelta: 0.01 };
-  
-  const mapStyle= [
+
+  const mapStyle = [
     {
       "elementType": "labels.icon",
       "stylers": [
@@ -51,11 +52,12 @@ export default function Map({ route }) {
         }
       ]
     }
-  ]
+  ];
+
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [filteredMarkers, setFilteredMarkers] = useState([]);
-
+  const [currentLocation, setCurrentLocation] = useState(null);
   const markers = useSelector((state) => state.data.locations);
 
   useEffect(() => {
@@ -67,10 +69,56 @@ export default function Map({ route }) {
       setFilteredMarkers(filtered);
     }
   }, [markers, route.params]);
+
   const handleMarkerPress = (title) => {
     setSelectedMarker(title);
     setModalVisible(true);
   };
+
+  useEffect(() => {
+    const checkPermissions = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        startLocationUpdates();
+      } else {
+        console.log('Foreground location permission denied');
+      }
+    };
+
+    checkPermissions();
+  }, []);
+
+  const startLocationUpdates = async () => {
+    try {
+      Location.startLocationUpdatesAsync('locationUpdates', {
+        accuracy: Location.Accuracy.High,
+        distanceInterval: 10,
+      });
+    } catch (error) {
+      console.log('Error starting location updates:', error);
+    }
+  };
+
+  useEffect(() => {
+    const locationListener = Location.watchPositionAsync(
+      { accuracy: Location.Accuracy.High, timeInterval: 1000, distanceInterval: 10 },
+      (location) => {
+        const userLocation = {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        };
+        setCurrentLocation(userLocation);
+      }
+    );
+
+    return () => {
+      if (locationListener) {
+        locationListener.remove();
+      }
+    };
+  }, []);
 
   const MarkerComponent = ({ title, coordinate, pinColor }) => (
     <Marker
@@ -79,17 +127,27 @@ export default function Map({ route }) {
       onPress={() => handleMarkerPress(title)}
       showCallout
     >
-      <Callout >
+      <Callout>
         <View style={styles.calloutContainer}>
           <Text style={styles.calloutText}>{title}</Text>
         </View>
       </Callout>
     </Marker>
   );
+
   return (
     <NativeBaseProvider>
-      <MapView  customMapStyle={mapStyle} style={styles.map} provider={PROVIDER_GOOGLE}  initialRegion={stadtLuebeckCoords} region={stadtLuebeckCoords} minZoomLevel={14}>
-      {filteredMarkers.map((marker, index) => (
+      <MapView
+        customMapStyle={mapStyle}
+        style={styles.map}
+        provider={PROVIDER_GOOGLE}
+        initialRegion={stadtLuebeckCoords}
+        region={currentLocation || stadtLuebeckCoords}
+        minZoomLevel={14}
+        showsUserLocation={true}
+        followsUserLocation={true}
+      >
+        {filteredMarkers.map((marker, index) => (
           <MarkerComponent
             key={index}
             title={marker.title}
@@ -98,6 +156,7 @@ export default function Map({ route }) {
           />
         ))}
       </MapView>
+
       <Modal1
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -110,27 +169,6 @@ export default function Map({ route }) {
 const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  closeButton: {
-    fontSize: 16,
-    color: 'blue',
-    textDecorationLine: 'underline',
   },
   calloutContainer: {
     backgroundColor: 'white',
