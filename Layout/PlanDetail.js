@@ -6,19 +6,14 @@ import { useIsFocused } from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
 import { FontAwesome } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { Platform } from 'react-native';
+
+
 
 
 const PlanDetail = ({ route }) => {
   const { item } = route.params;
   const [planAdded, setPlanAdded] = useState(false);
-  const [visitTimeAdded, setVisitTimeAdded] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-  const [selectedTime, setSelectedTime] = useState(null);
+
   const isFocused = useIsFocused();
   const navigation = useNavigation();
 
@@ -39,7 +34,6 @@ const PlanDetail = ({ route }) => {
           }
         } else {
           setPlanAdded(false);
-          setVisitTimeAdded(false);
         }
       }
     } catch (error) {
@@ -54,7 +48,6 @@ const PlanDetail = ({ route }) => {
       parsedPlans.push(item);
       await AsyncStorage.setItem('plans', JSON.stringify(parsedPlans));
       setPlanAdded(true);
-      setVisitTimeAdded(false);
     } catch (error) {
       console.log('Error adding plan to AsyncStorage:', error);
     }
@@ -68,7 +61,6 @@ const PlanDetail = ({ route }) => {
         const updatedPlans = parsedPlans.filter((plan) => plan.title !== item.title);
         await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
         setPlanAdded(false);
-        setVisitTimeAdded(false);
       }
     } catch (error) {
       console.log('Error deleting plan from AsyncStorage:', error);
@@ -134,7 +126,7 @@ const PlanDetail = ({ route }) => {
   
         return (
           <Text style={[styles.location, { color: 'green' }]}>
-            {`öffnet, es wird im ${hours}:${minutes < 10 ? '0' : ''}${minutes} schließen`}
+            {`geöffnet, es wird in ${hours}:${minutes < 10 ? '0' : ''}${minutes} schließen`}
           </Text>
         );
       }
@@ -142,64 +134,6 @@ const PlanDetail = ({ route }) => {
       return null;
     }
   };
-  const handleIconPress = () => {
-    if (planAdded) {
-      setShowModal(true);
-    } else {
-      addPlan();
-    }
-  };
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleDateConfirm = (date) => {
-    setSelectedDate(date);
-    hideDatePicker();
-  };
-
-  const showTimePicker = () => {
-    setTimePickerVisibility(true);
-  };
-
-  const hideTimePicker = () => {
-    setTimePickerVisibility(false);
-  };
-
-  const handleTimeConfirm = (time) => {
-    setSelectedTime(time);
-    hideTimePicker();
-  };
-  const handleVisitTimeAdd = async () => {
-    try {
-      const storedPlans = await AsyncStorage.getItem('plans');
-      if (storedPlans) {
-        const parsedPlans = JSON.parse(storedPlans);
-        const updatedPlans = parsedPlans.map((plan) => {
-          if (plan.title === item.title) {
-            return {
-              ...plan,
-              visitTime: {
-                date: selectedDate,
-                time: selectedTime,
-              },
-            };
-          }
-          return plan;
-        });
-        await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
-        setVisitTimeAdded(true);
-        setShowModal(false);
-      }
-    } catch (error) {
-      console.log('Error adding visit time to plan in AsyncStorage:', error);
-    }
-  };
-  
 
   return (
     <NativeBaseProvider>
@@ -227,13 +161,6 @@ const PlanDetail = ({ route }) => {
           {item.phoneNumber && (
             <FontAwesome name="phone" size={24} style={styles.icon} onPress={callPhoneNumber} />
           )}
-          <TouchableOpacity onPress={handleIconPress}>
-            {planAdded ? (
-              <FontAwesome name="clock-o" size={24} style={[styles.icon, visitTimeAdded ? styles.greenIcon : styles.redIcon]} />
-            ) : (
-              <FontAwesome name="clock-o" size={24} style={styles.icon} />
-            )}
-          </TouchableOpacity>
           <TouchableOpacity onPress={openMapsForDirections}>
             <FontAwesome name="map" size={24} style={styles.icon} />
           </TouchableOpacity>
@@ -259,42 +186,6 @@ const PlanDetail = ({ route }) => {
           )}
         </Box>
       </Box>
-      {showModal && (
-        <Modal visible={showModal} animationType="slide" transparent>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.title}>Besuchszeit hinzufügen</Text>
-              <Divider my={2} />
-              <Box flexDirection="row" justifyContent="space-between" alignItems="flex-end" marginTop={4}>
-                <Button width={155} onPress={showDatePicker}>Datum auswählen</Button>
-                <TextInput placeholder="Datum...">{selectedDate && selectedDate.toDateString()}</TextInput>
-                <DateTimePickerModal
-                  isVisible={isDatePickerVisible}
-                  mode="date"
-                  onConfirm={handleDateConfirm}
-                  onCancel={hideDatePicker}
-                />
-              </Box>
-              <Box flexDirection="row" justifyContent="space-between" alignItems="flex-end" marginTop={4}>
-                <Button width={155} onPress={showTimePicker}>Uhrzeit wählen</Button>
-                <TextInput placeholder="Uhrzeit...">{selectedTime && selectedTime.toLocaleTimeString()}</TextInput>
-                <DateTimePickerModal
-                  isVisible={isTimePickerVisible}
-                  mode="time"
-                  onConfirm={handleTimeConfirm}
-                  onCancel={hideTimePicker}
-                />
-              </Box>
-              <Divider mt={6} />
-              <Box mt={3} flexDirection="row" justifyContent="space-between" alignItems="flex-end" height={50} paddingHorizontal={100}>
-                <Button colorScheme="success" mr={5} onPress={() => handleVisitTimeAdd()}>Hinzufügen</Button>
-                <Button variant="ghost" onPress={() => setShowModal(false)}>Abbrechen</Button>
-              </Box>
-            </View>
-          </View>
-        </Modal>
-        
-      )}
     </NativeBaseProvider>
   );
 };
@@ -362,16 +253,6 @@ const styles = StyleSheet.create({
   },
   greenIcon: {
     color: 'green',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 8,
   },
 });
 
