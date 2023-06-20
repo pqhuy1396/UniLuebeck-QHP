@@ -21,6 +21,8 @@ export default function Plan() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [tripStatus, setTripStatus] = useState('');
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [showItemModal, setShowItemModal] = useState(false);
+
   
   useEffect(() => {
     const checkPermissions = async () => {
@@ -121,46 +123,93 @@ export default function Plan() {
     return distance / (speed * 60); // Divide by (speed * 60) to get minutes
   };
 
+  
   const renderItem = ({ item , index}) => {
     let label = "null";
     if (index === 0 && currentLocation) {
       const distance = calculateDistance(currentLocation.latitude, currentLocation.longitude, item.coordinate.latitude, item.coordinate.longitude);
       const time = calculateTime(distance);
-      label = `Distance from current location: ${distance.toFixed(2)} meters, Time: ${time.toFixed(2)} minutes`;
+      label = `Entfernung vom aktuellen Standort: ${distance.toFixed(0)} Meter, Zeit: ${time.toFixed(0)} Minuten`;
     } else if (index > 0 && plans[index - 1]) {
       const prevLocation = plans[index - 1];
       const distance = calculateDistance(prevLocation.coordinate.latitude, prevLocation.coordinate.longitude, item.coordinate.latitude, item.coordinate.longitude);
       const time = calculateTime(distance);
-      label = `Distance from previous location: ${distance.toFixed(2)} meters, Time: ${time.toFixed(2)} minutes`;
+      label = `Entfernung vom vorherigen Standort: ${distance.toFixed(0)} Meter, Zeit: ${time.toFixed(0)} Minuten`;
     }
- 
+    const calculateTimeDifference = () => {
+      if (item.openingTime && item.openingTime.start && item.openingTime.end) {
+        const currentTime = new Date();
+        const openingTimeParts = item.openingTime.start.split(':');
+        const closingTimeParts = item.openingTime.end.split(':');
+    
+        const openingTime = new Date();
+        openingTime.setHours(Number(openingTimeParts[0]));
+        openingTime.setMinutes(Number(openingTimeParts[1]));
+    
+        const closingTime = new Date();
+        closingTime.setHours(Number(closingTimeParts[0]));
+        closingTime.setMinutes(Number(closingTimeParts[1]));
+        if (item.openingTime.start === item.openingTime.end){
+          return (
+            <Text style={[styles.location, { color: 'green' }]}>
+              {`24 Stunden geöffnet`}
+            </Text>
+          );
+        }
+        else if (currentTime < openingTime || currentTime > closingTime) {
+          const timeDifference = currentTime < openingTime ? openingTime - currentTime : currentTime - closingTime;
+          const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+          const status = currentTime < openingTime ? 'es wird noch' : 'abgeschlossen, es hat vor';
+    
+          return (
+            <Text style={[styles.location, { color: 'red' }]}>
+              {`${status} ${hours} Studen ${minutes < 10 ? '0' : ''}${minutes} Minuten ${currentTime < openingTime ? 'geöffnet' : 'geschlossen'}`}
+            </Text>
+          );
+        } else {
+          const timeDifference = closingTime - currentTime;
+          const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDifference / (1000 * 60)) % 60);
+    
+          return (
+            <Text style={[styles.location, { color: 'green' }]}>
+              {`geöffnet, es wird in ${hours} Stunden ${minutes < 10 ? '0' : ''}${minutes} Minuten schließen`}
+            </Text>
+          );
+        }
+      } else {
+        return null;
+      }
+    };
+  
     return (
       <SwipeListView
         data={[item]}
         renderItem={({ item }) => (
+          <TouchableOpacity onLongPress={() => handleItemClick(item)}>
           <View style={styles.planItem}>
-            
             <Text>{label}</Text>
-            
             <Text style={styles.planTitle}>{item.title}</Text>
+            <Text>{calculateTimeDifference()}</Text>
           </View>
+          </TouchableOpacity>
         )}
         renderHiddenItem={({ item }) => (
           <View style={styles.hiddenItem}>
             <Button onPress={() => moreInformation(item)} borderRadius="none" colorScheme="success" style={styles.hiddenButton}>
-              Mehr
+              Details
             </Button>
-            <Button onPress={() => deleteItem(item)} borderRadius="none" colorScheme="danger" style={styles.hiddenButton}>
-              Delete
+            <Button onPress={() => deleteItem(item)} borderRadius="none" colorScheme="danger" style={styles.hiddenButton2}>
+              Löschen
             </Button>
           </View>
         )}
-        rightOpenValue={-120}
+        rightOpenValue={-140}
         disableRightSwipe={true}
       />
     );
   };
-
   const moreInformation = (item) => {
     navigation.navigate('Plan Detail', { item });
   };
@@ -175,6 +224,51 @@ export default function Plan() {
     }
   };
 
+  const lastItem = async (item) => {
+    try {
+      const updatedPlans = [...plans];
+      const index = updatedPlans.findIndex((plan) => plan.title === item.title);
+      
+      if (index !== -1) {
+        updatedPlans.splice(index, 1); // Remove the item from the array
+        updatedPlans.push(item); // Add the item back at the end
+        
+        setPlans(updatedPlans);
+        await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+      }
+    } catch (error) {
+      console.log('Error deleting item:', error);
+    }
+    handleCloseModal();
+  };
+
+
+  const firstItem = async (item) => {
+    try {
+      const updatedPlans = [...plans];
+      const index = updatedPlans.findIndex((plan) => plan.title === item.title);
+  
+      if (index !== -1) {
+        updatedPlans.splice(index, 1); // Remove the item from the array
+        updatedPlans.unshift(item); // Add the item to the beginning of the array
+  
+        setPlans(updatedPlans);
+        await AsyncStorage.setItem('plans', JSON.stringify(updatedPlans));
+      }
+    } catch (error) {
+      console.log('Error deleting item:', error);
+    }
+    handleCloseModal();
+  };
+
+  const handleItemClick = (item) => {
+    setSelectedPlan(item);
+    setShowItemModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowItemModal(false);
+  };
   useEffect(() => {
     const getPlansFromStorage = async () => {
       try {
@@ -286,6 +380,28 @@ export default function Plan() {
           </Button>
         </Box>
       </Box>
+
+      {showItemModal && (
+        <Modal visible={showItemModal} animationType="slide" transparent>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.title}>{selectedPlan.title}</Text>
+              <Divider my={2} />
+              <Box style={styles.modalContent2} justifyContent="space-between">
+              <Text marginBottom={2}>Haben Sie Ihren Besuch an diesem Ort beendet?</Text>
+              <Button marginBottom={4} size={"sm"} colorScheme={"red"}  onPress={() => lastItem(selectedPlan)}>
+                Beenden
+              </Button>
+              <Text marginBottom={2}>Möchten Sie diesen Ort sofort besuchen?</Text>
+              <Button size={"sm"} colorScheme={"green"} onPress={() => firstItem(selectedPlan)}>
+                Sofort
+              </Button>
+              </Box>
+              </View>
+            
+            </View>
+      </Modal>
+      )}
       {showModal && (
         <Modal visible={showModal} animationType="slide" transparent>
           <View style={styles.modalContainer}>
@@ -392,6 +508,10 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
   },
+  hiddenButton2: {
+    height: '100%',
+    justifyContent: 'center',
+  },
   icon: {
     marginLeft: 16,
     marginBottom: 8,
@@ -416,6 +536,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
     borderRadius: 8,
+  },
+  modalContent2: {
+    
+    padding: 8,
+
   },
   title: {
     fontSize: 20,

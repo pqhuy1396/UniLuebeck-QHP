@@ -134,7 +134,6 @@ export default function Map({ route }) {
       </Callout>
     </Marker>
   );
-
   return (
     <NativeBaseProvider>
       <MapView

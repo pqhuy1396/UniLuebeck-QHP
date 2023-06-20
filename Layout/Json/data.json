@@ -5,7 +5,7 @@
       "coordinate": { "latitude": 53.86789, "longitude": 10.6852982 },
       "category": "Kirche",
       "pinColor": "red",
-      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of  (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.      ",
+      "description": "Die Lübecker Marienkirche (offiziell St. Marien zu Lübeck) wurde zwischen 1265 und 1351 errichtet. Die Lübecker Markt- und Hauptpfarrkirche befindet sich auf dem höchsten Punkt der Lübecker Altstadtinsel, ist Teil des UNESCO-Welterbes Lübecker Altstadt und eine der größten Backsteinkirchen. Sie wird als „Mutterkirche der Backsteingotik“[1] bezeichnet und gilt als ein Hauptwerk des Kirchenbaus im Ostseeraum. St. Marien gehört zur Evangelisch-Lutherischen Kirche in Norddeutschland.",
       "website": "https://st-marien-luebeck.de/page/11/die-marienkirche-l%C3%BCbeck",
       "phoneNumber": "+49451397700",
       "Time": "9:00 - 18:00",
@@ -17,7 +17,9 @@
       "price": "10$",
       "pictures": [
         "https://www.eurob.org/wp-content/blogs.dir/sites/203/de_luebeck_st-marien-kirche_foto_thomas_berg-1.jpg",
-        "https://wir-sind-luebeck.de/wp-content/uploads/2019/10/hoechste-backsteingewoelbe-weltweit.jpg"
+        "https://wir-sind-luebeck.de/wp-content/uploads/2019/10/hoechste-backsteingewoelbe-weltweit.jpg",
+        "https://hansestaedte.com/wp-content/uploads/2016/02/St.-Marien-Kirche-Luebeck.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c9/Germany_Luebeck_overview_north.jpg"
       ]
     },
     {
@@ -28,7 +30,7 @@
       },
       "category": "Park",
       "pinColor": "green",
-      "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)",
+      "description": "Die größte Anlage befindet sich an der Kanalstraße. Dieser sehr innenstadtnahe Platz ist bei Skatern, Skateboardfahrern und BMX-Fahrern sehr beliebt  Auf 1.350 Quadratmeter Fläche finden sie dort einen Gap Curb, ein Hausdach, eine schwebende Bank, eine Miniramp, einen Miniramp Table, einen Quarterhip, einen Funknopf, einen Bankhip, ein Stufenpodest und ein Flatrail.Als die ursprünglichen Rampen mit einem Edelstahlbelag nach zwölf Jahren an ihre Verschleißgrenze gestoßen waren, wurden die Wünsche zur Neugestaltung intensiv mit den Jugendlichen besprochen. Zu diesen Wünschen gehörte unter anderem auch ein Untergrund aus Beton. Dank der großzügigen Unterstützung der Emil-Possehl-Stiftung konnten sie »ihre« neue Anlage 2012 einweihen. Neben der verbesserten Fahrdynamik können mehrere Fahrer die Geräte nun auch gleichzeitig nutzen.  Realisiert hat die Anlage eine Fachfirma, deren Mitarbeiter selbst sämtlich Skateboardfahrer sind. Und weil sie bis 22 Uhr von vier Mastleuchten ausgeleuchtet wird, ist sie auch in der dunklen Jahreszeit attraktiv.",
       "website": "https://www.example.com",
       "phoneNumber": "+1234567890",
       "openingTime": {
@@ -51,7 +53,7 @@
       },
       "category": "Kirche",
       "pinColor": "red",
-      "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)",
+      "description": "Der Lübecker Dom (auch Dom zu Lübeck) ist der erste große Backsteinkirchbau an der Ostsee und mit fast 132 Metern Länge eine der längsten Backsteinkirchen. 1173 wurde der Lübecker Dom von Heinrich dem Löwen begründet und 1247 geweiht. Patrone der evangelischen Kirche sind die Heiligen Johannes der Täufer und Blasius (wie im Braunschweiger Dom), Maria und Nikolaus.   Seit fast 850 Jahren prägen die beiden großen Türme des Domes das Stadtbild Lübecks. Seit ebenso vielen sammeln sich Menschen unter dem weiten Dach des Domes. In der hellen, lichtvollen Kirche ist Raum für Tränen und für Träume. Menschen feiern hier bis heute fröhliche Feste, freuen sich über Kinder bei Taufen oder über die Liebe der Brautpaare, und sie nehmen Abschied von ihren Toten. Der große Dom mit dem Altar in der Mitte ist Ort für große Konzerte und festliche Gottesdienste ebenso wie für stille Andacht und spannende Führungen durch die Kirche oder über das Gewölbe. Das Triumphkreuz von Bernt Notke ist seit gut 500 Jahren ein Kunstschatz, den es zu entdecken gilt, ebenso wie die Sonnenuhr auf dem Lettner mit den beweglichen Augen, wie der kleine versteckte Seifenblasenengel oder die wunderbare Marcussenorgel.  Heinrich der Löwe spielt in der Geschichte des Doms eine wichtige Rolle, er wurde zum großzügigen Förderer der Stadt und ihres Handels im Ostseeraum. Ein Jahr nach Neugründung der Hansestadt wurde der Bischofssitz nach Lübeck verlegt und dem Bischof im Süden der Stadt ein Gebiet für den Bau des heutigen Doms und für die Häuser der Kanoniker zugewiesen. Nachdem im Bereich des heutigen Doms eine Holzkirche gebaut und 1163 geweiht wurde, begannen die Pläne für die große steinerne Kirche, deren Grundstein 1173 gelegt wurde. Als Ersatz für den Naturstein, der in dieser Gegend nicht zur Verfügung stand, nahm man Backstein als Baustoff. Geweiht wurde der Dom 1247, Patrone sind Johannes der Täufer und Nikolaus. Kurz danach wurde dem Dom auf der Nordseite das Paradies, eine große Vorhalle, angefügt und 1266 begann die große Erweiterung nach Osten. In der Nacht zum Palmsonntag 1942 brannten durch den Bombenangriff die Hansestadt und die drei großen Kirchen, St. Marien, St. Petri und der Dom. Durch den lange andauernden Wiederaufbau des Domes, besonders des Chores, wurde man an das Ausmaß der Bauzeiten des Mittelalters erinnert. Die Wiederaufbaumaßnahmen begannen 1960, 1977 wurde der gotische Chor fertig gestellt und 1982 die Paradiesvorhalle. Allerdings konnte durch die lange Zeit des Wiederaufbauens der Plan reifen den Innenraum der Kirche dem Feiern des lutherischen Gottesdienstes entsprechend einzurichten. Der Dom wurde 1970 so eingerichtet wie er heute zu sehen ist. Es ist wie ein Wunder, dass so viele Kunstwerke den Brand des Doms überstanden haben.",
       "website": "https://www.domzuluebeck.de/",
       "phoneNumber": "045174704",
       "openingTime": {
@@ -63,7 +65,9 @@
       "price": "10$",
       "pictures": [
         "https://www.nordkirche.de/fileadmin/_processed_/e/5/csm_Dom_Luebeck_Trave_pixabay__Manfred_Zajac_13d543ef8b.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg/300px-L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg/300px-L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/6/6b/Aerial_image_of_the_L%C3%BCbeck_Cathedral_%28view_from_the_southwest%29.jpg",
+        "https://www.nordkirche.de/fileadmin/_processed_/e/5/csm_Dom_Luebeck_Trave_pixabay__Manfred_Zajac_13d543ef8b.jpg"
       ]
     },
     {
@@ -86,7 +90,133 @@
       "price": "0$",
       "pictures": [
         "https://www.luebeck-info.com/img/buergergaerten-1200x798.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg/300px-L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg"
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg/300px-L%C3%BCbeck_Cathedral_nave%2C_altar_and_pulpit.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Gemeinnuetzige_Gartenblick.JPG/1200px-Gemeinnuetzige_Gartenblick.JPG",
+        "https://sh-kunst.de/wp-content/uploads/25236__Fritz-Behn__Fauchender-Leopard__DSC9859-320x400.jpg"
+        
+      ]
+    }
+    ,
+    {
+      "title": "Stadtgraben",
+      "coordinate": {
+        "latitude": 53.8625122,
+        "longitude": 10.6799681
+      },
+      "category": "Park",
+      "pinColor": "green",
+      "description": "Der Stadtgraben in Lübeck ist ein historischer Wassergraben, der die Altstadt von Lübeck umgibt. Er diente früher als Verteidigungsanlage und ist heute ein beliebtes touristisches Ziel. Der genaue Verlauf des Stadtgrabens erstreckt sich entlang der Stadtmauer von Lübeck und umgibt somit das historische Zentrum der Stadt.",
+      "website": "NaN",
+      "phoneNumber": "045174704",
+      "openingTime": {
+        "start": "00:00",
+        "end": "00:00"
+      },
+      "Time":"Ganztags geöffnet",
+      "location": "23558 Lübeck",
+      "price": "0$",
+      "pictures": [
+        "https://www.ahoimaike.de/wp-content/uploads/Sonnenuntergang-am-Stadtgraben-Lu%CC%88beck-AhoiMaike.jpg",
+        "https://www.kanu-center.de/wp-content/uploads/2017/04/Luebeck_Dom.jpg",
+        "https://www.anglermap.de/images/big/gewaesser/g6308b1.jpg"
+      ]
+    },
+    {
+      "title": "St. Petri zu Lübeck",
+      "coordinate": {
+        "latitude": 53.8666365,
+        "longitude": 10.681367
+      },
+      "category": "Kirche",
+      "pinColor": "red",
+      "description": "Die St.-Petri-Kirche zu Lübeck ist ein Gotteshaus, das erstmals im Jahr 1170 erwähnt wurde. Im Laufe der Jahrhunderte wurde sie mehrmals ausgebaut, bis sie im 15. Jahrhundert fertig gebaut war. Im Zweiten Weltkrieg erlitt sie starke Schäden und wurde erst 1987 vollständig restauriert. Da die Ausstattung nicht wiederhergestellt werden konnte, finden nur besondere Gottesdienste in der Kirche statt. Als Stadtkirche ohne Gemeinde wird sie hauptsächlich für kulturelle und religiöse Veranstaltungen sowie Kunstausstellungen genutzt.  Die Wirkung des schlichten Raumes der fünfschiffigen Hallenkirche kommt durch die besondere Architektur sehr gut zur Geltung. Moderne Kunstwerke wie das Altarkreuz des österreichischen Künstlers Arnulf Rainer sowie das illuminierte Neonkreuz von Hanna Jäger laden Besucher zum Nachdenken ein.",
+      "website": "https://www.st-petri-luebeck.de/",
+      "phoneNumber": "0451 397730",
+      "openingTime": {
+        "start": "10:00",
+        "end": "16:00"
+      },
+      "Time":"10:00 - 16:00",
+      "location": "Königstraße 104, 23552 Lübeck",
+      "price": "10$",
+      "pictures": [
+        "https://st-petri-luebeck.de/templates/petri-kirche-test/img/st-petri3.jpg",
+        "https://www.kirche-ll.de/fileadmin/media/gemeinden/Innenstadtkirchen/St_Petri/Bildergalerie_St_Petri_Luebeck/St_Petri_Luebeck.JPG",
+        "https://www.kirche-ll.de/fileadmin/_processed_/d/b/csm_St_Petri_Luebeck_Ansicht_Obertrave_75cc0bfbe1.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c9/L%C3%BCbecker_malerwinkel.jpg"
+      ]
+    },
+    {
+      "title": "Thana Asia Restaurant",
+      "coordinate": {
+        "latitude": 53.8665126,
+        "longitude": 10.6826185
+      },
+      "category": "Restaurant",
+      "pinColor": "yellow",
+      "description": "Mitnehmen, Lieferung und Reservierung möglich.",
+      "website": "thana-asia.eatbu.com",
+      "phoneNumber": "0451 29274160",
+      "openingTime": {
+        "start": "11:00",
+        "end": "22:00"
+      },
+      "Time":"11:00 - 22:00",
+      "location": "Holstenstraße 18, 23552 Lübeck",
+      "price": "20$",
+      "pictures": [
+        "https://cdn.website.dish.co/media/20/76/2564581/Thana-Asia-Restaurant-89027621-2918256754893533-6673201755649474560-n.jpg",
+        "https://s3-media0.fl.yelpcdn.com/bphoto/eJm5P1PNW_IbY4zLqEwSXw/348s.jpg",
+        "https://threebestrated.de/images/ThanaAsiaRestaurant-Lubeck-DE.jpeg"
+      ]
+    },
+    {
+      "title": "Restaurant Schiffergesellschaft",
+      "coordinate": {
+        "latitude": 53.8668531,
+        "longitude": 10.6778728
+      },
+      "category": "Restaurant",
+      "pinColor": "yellow",
+      "description": "Mitnehmen und Reservierung möglich.",
+      "website": "https://schiffergesellschaft.de/",
+      "phoneNumber": "045176776",
+      "openingTime": {
+        "start": "12:00",
+        "end": "22:00"
+      },
+      "Time":"12:00 - 22:00",
+      "location": "Breite Str. 2, 23552 Lübeck",
+      "price": "20$",
+      "pictures": [
+        "https://schiffergesellschaft.de/wp-content/uploads/2020/02/schiffergesellschaft-luebeck-sgs.grossehalle1%C2%A9leisner.jpg",
+        "https://wir-sind-luebeck.de/wp-content/uploads/2018/02/restaurant-schiffergesellschaft.jpg",
+        "https://schiffergesellschaft.de/wp-content/uploads/2020/02/schiffergesellschaft-luebeck-sgs.garten%C2%A9puronectar.jpg"
+      ]
+    },
+    {
+      "title": "Fangfrisch Lübeck",
+      "coordinate": {
+        "latitude": 53.8718665,
+        "longitude": 10.6843601
+      },
+      "category": "Restaurant",
+      "pinColor": "yellow",
+      "description": "Mitnehmen und Reservierung möglich.",
+      "website": "https://www.fangfrisch-luebeck.de/",
+      "phoneNumber": "045139686609",
+      "openingTime": {
+        "start": "12:00",
+        "end": "22:00"
+      },
+      "Time":"12:00 - 22:00",
+      "location": "An d. Untertrave 51, 23552 Lübeck",
+      "price": "20$",
+      "pictures": [
+        "https://images.otstatic.com/prod/26292200/2/large.jpg",
+        "https://connect.grapealliance.com/wp-content/uploads/2022/02/240724761_2730338510604760_5867489752579504193_n.jpg",
+        "https://dam.destination.one/389104/967e6d390acc3b3e2146fefc5ed1a82d08c160c384baea73ea7fe768845e1d18/fangfrisch.jpg",
+        "https://wir-sind-luebeck.de/wp-content/uploads/2020/04/luebecker-mittagstisch.jpg"
       ]
     }
   ]
